@@ -34,12 +34,12 @@ public class HorarioLivre implements Serializable {
     private Long id;
 
     @NotNull
-    @Column(name = "data_hora_inicio", nullable = false)
-    private LocalDate dataHoraInicio;
+    @Column(name = "data_inicial", nullable = false)
+    private LocalDate dataInicial;
 
     @NotNull
-    @Column(name = "data_hora_fim", nullable = false)
-    private LocalDate dataHoraFim;
+    @Column(name = "data_final", nullable = false)
+    private LocalDate dataFinal;
 
     @NotNull
     @Column(name = "ocupado", nullable = false)
@@ -58,30 +58,30 @@ public class HorarioLivre implements Serializable {
         this.id = id;
     }
 
-    public LocalDate getDataHoraInicio() {
-        return dataHoraInicio;
+    public LocalDate getDataInicial() {
+        return dataInicial;
     }
 
-    public HorarioLivre dataHoraInicio(LocalDate dataHoraInicio) {
-        this.dataHoraInicio = dataHoraInicio;
+    public HorarioLivre dataInicial(LocalDate dataInicial) {
+        this.dataInicial = dataInicial;
         return this;
     }
 
-    public void setDataHoraInicio(LocalDate dataHoraInicio) {
-        this.dataHoraInicio = dataHoraInicio;
+    public void setDataInicial(LocalDate dataInicial) {
+        this.dataInicial = dataInicial;
     }
 
-    public LocalDate getDataHoraFim() {
-        return dataHoraFim;
+    public LocalDate getDataFinal() {
+        return dataFinal;
     }
 
-    public HorarioLivre dataHoraFim(LocalDate dataHoraFim) {
-        this.dataHoraFim = dataHoraFim;
+    public HorarioLivre dataFinal(LocalDate dataFinal) {
+        this.dataFinal = dataFinal;
         return this;
     }
 
-    public void setDataHoraFim(LocalDate dataHoraFim) {
-        this.dataHoraFim = dataHoraFim;
+    public void setDataFinal(LocalDate dataFinal) {
+        this.dataFinal = dataFinal;
     }
 
     public Boolean isOcupado() {
@@ -132,8 +132,8 @@ public class HorarioLivre implements Serializable {
     public String toString() {
         return "HorarioLivre{" +
             "id=" + getId() +
-            ", dataHoraInicio='" + getDataHoraInicio() + "'" +
-            ", dataHoraFim='" + getDataHoraFim() + "'" +
+            ", dataInicial='" + getDataInicial() + "'" +
+            ", dataFinal='" + getDataFinal() + "'" +
             ", ocupado='" + isOcupado() + "'" +
             "}";
     }
