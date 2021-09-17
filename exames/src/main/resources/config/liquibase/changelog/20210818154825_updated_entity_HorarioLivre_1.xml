@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+
+    <!--
+        Added the entity HorarioLivre.
+    -->
+    <changeSet id="20210818154825-2" author="jhipster">
+        <dropColumn tableName="horario_livre">
+            <column name="data_hora_inicio" type="date">
+                <constraints nullable="false" />
+            </column>
+            <column name="data_hora_fim" type="date">
+                <constraints nullable="false" />
+            </column>
+        </dropColumn>
+
+        <addColumn tableName="horario_livre">
+            <column name="data_inicial" type="date" defaultValueDate="2021-01-01">
+                <constraints nullable="false" />
+            </column>
+            <column name="data_final" type="date" defaultValueDate="2021-02-01">
+                <constraints nullable="false" />
+            </column>
+        </addColumn>
+    </changeSet>
+
+<!--    <changeSet id="20210818154825-2-data" author="jhipster" context="faker">-->
+<!--        <loadData-->
+<!--                  file="config/liquibase/fake-data/horario_livre_v2.csv"-->
+<!--                  separator=";"-->
+<!--                  tableName="horario_livre">-->
+<!--            <column name="id" type="numeric"/>-->
+<!--            <column name="data_inicial" type="date"/>-->
+<!--            <column name="data_final" type="date"/>-->
+<!--            <column name="ocupado" type="boolean"/>-->
+<!--        </loadData>-->
+<!--    </changeSet>-->
+
+</databaseChangeLog>

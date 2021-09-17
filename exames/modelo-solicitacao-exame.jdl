@@ -136,8 +136,8 @@ exclusivo Boolean required
 }
 
 entity HorarioLivre {
-dataHoraInicio LocalDate required
-dataHoraFim LocalDate required
+dataInicial LocalDate required
+dataFinal LocalDate required
 ocupado Boolean required
 }
 

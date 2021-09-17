@@ -44,11 +44,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WithMockUser
 public class HorarioLivreResourceIT {
 
-    private static final LocalDate DEFAULT_DATA_HORA_INICIO = LocalDate.ofEpochDay(0L);
-    private static final LocalDate UPDATED_DATA_HORA_INICIO = LocalDate.now(ZoneId.systemDefault());
+    private static final LocalDate DEFAULT_DATA_INICIAL = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_DATA_INICIAL = LocalDate.now(ZoneId.systemDefault());
 
-    private static final LocalDate DEFAULT_DATA_HORA_FIM = LocalDate.ofEpochDay(0L);
-    private static final LocalDate UPDATED_DATA_HORA_FIM = LocalDate.now(ZoneId.systemDefault());
+    private static final LocalDate DEFAULT_DATA_FINAL = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_DATA_FINAL = LocalDate.now(ZoneId.systemDefault());
 
     private static final Boolean DEFAULT_OCUPADO = false;
     private static final Boolean UPDATED_OCUPADO = true;
@@ -86,8 +86,8 @@ public class HorarioLivreResourceIT {
      */
     public static HorarioLivre createEntity(EntityManager em) {
         HorarioLivre horarioLivre = new HorarioLivre()
-            .dataHoraInicio(DEFAULT_DATA_HORA_INICIO)
-            .dataHoraFim(DEFAULT_DATA_HORA_FIM)
+            .dataInicial(DEFAULT_DATA_INICIAL)
+            .dataFinal(DEFAULT_DATA_FINAL)
             .ocupado(DEFAULT_OCUPADO);
         return horarioLivre;
     }
@@ -99,8 +99,8 @@ public class HorarioLivreResourceIT {
      */
     public static HorarioLivre createUpdatedEntity(EntityManager em) {
         HorarioLivre horarioLivre = new HorarioLivre()
-            .dataHoraInicio(UPDATED_DATA_HORA_INICIO)
-            .dataHoraFim(UPDATED_DATA_HORA_FIM)
+            .dataInicial(UPDATED_DATA_INICIAL)
+            .dataFinal(UPDATED_DATA_FINAL)
             .ocupado(UPDATED_OCUPADO);
         return horarioLivre;
     }
@@ -125,8 +125,8 @@ public class HorarioLivreResourceIT {
         List<HorarioLivre> horarioLivreList = horarioLivreRepository.findAll();
         assertThat(horarioLivreList).hasSize(databaseSizeBeforeCreate + 1);
         HorarioLivre testHorarioLivre = horarioLivreList.get(horarioLivreList.size() - 1);
-        assertThat(testHorarioLivre.getDataHoraInicio()).isEqualTo(DEFAULT_DATA_HORA_INICIO);
-        assertThat(testHorarioLivre.getDataHoraFim()).isEqualTo(DEFAULT_DATA_HORA_FIM);
+        assertThat(testHorarioLivre.getDataInicial()).isEqualTo(DEFAULT_DATA_INICIAL);
+        assertThat(testHorarioLivre.getDataFinal()).isEqualTo(DEFAULT_DATA_FINAL);
         assertThat(testHorarioLivre.isOcupado()).isEqualTo(DEFAULT_OCUPADO);
 
         // Validate the HorarioLivre in Elasticsearch
@@ -159,10 +159,10 @@ public class HorarioLivreResourceIT {
 
     @Test
     @Transactional
-    public void checkDataHoraInicioIsRequired() throws Exception {
+    public void checkDataInicialIsRequired() throws Exception {
         int databaseSizeBeforeTest = horarioLivreRepository.findAll().size();
         // set the field null
-        horarioLivre.setDataHoraInicio(null);
+        horarioLivre.setDataInicial(null);
 
         // Create the HorarioLivre, which fails.
         HorarioLivreDTO horarioLivreDTO = horarioLivreMapper.toDto(horarioLivre);
@@ -179,10 +179,10 @@ public class HorarioLivreResourceIT {
 
     @Test
     @Transactional
-    public void checkDataHoraFimIsRequired() throws Exception {
+    public void checkDataFinalIsRequired() throws Exception {
         int databaseSizeBeforeTest = horarioLivreRepository.findAll().size();
         // set the field null
-        horarioLivre.setDataHoraFim(null);
+        horarioLivre.setDataFinal(null);
 
         // Create the HorarioLivre, which fails.
         HorarioLivreDTO horarioLivreDTO = horarioLivreMapper.toDto(horarioLivre);
@@ -228,8 +228,8 @@ public class HorarioLivreResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(horarioLivre.getId().intValue())))
-            .andExpect(jsonPath("$.[*].dataHoraInicio").value(hasItem(DEFAULT_DATA_HORA_INICIO.toString())))
-            .andExpect(jsonPath("$.[*].dataHoraFim").value(hasItem(DEFAULT_DATA_HORA_FIM.toString())))
+            .andExpect(jsonPath("$.[*].dataInicial").value(hasItem(DEFAULT_DATA_INICIAL.toString())))
+            .andExpect(jsonPath("$.[*].dataFinal").value(hasItem(DEFAULT_DATA_FINAL.toString())))
             .andExpect(jsonPath("$.[*].ocupado").value(hasItem(DEFAULT_OCUPADO.booleanValue())));
     }
     
@@ -244,8 +244,8 @@ public class HorarioLivreResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(horarioLivre.getId().intValue()))
-            .andExpect(jsonPath("$.dataHoraInicio").value(DEFAULT_DATA_HORA_INICIO.toString()))
-            .andExpect(jsonPath("$.dataHoraFim").value(DEFAULT_DATA_HORA_FIM.toString()))
+            .andExpect(jsonPath("$.dataInicial").value(DEFAULT_DATA_INICIAL.toString()))
+            .andExpect(jsonPath("$.dataFinal").value(DEFAULT_DATA_FINAL.toString()))
             .andExpect(jsonPath("$.ocupado").value(DEFAULT_OCUPADO.booleanValue()));
     }
     @Test
@@ -269,8 +269,8 @@ public class HorarioLivreResourceIT {
         // Disconnect from session so that the updates on updatedHorarioLivre are not directly saved in db
         em.detach(updatedHorarioLivre);
         updatedHorarioLivre
-            .dataHoraInicio(UPDATED_DATA_HORA_INICIO)
-            .dataHoraFim(UPDATED_DATA_HORA_FIM)
+            .dataInicial(UPDATED_DATA_INICIAL)
+            .dataFinal(UPDATED_DATA_FINAL)
             .ocupado(UPDATED_OCUPADO);
         HorarioLivreDTO horarioLivreDTO = horarioLivreMapper.toDto(updatedHorarioLivre);
 
@@ -283,8 +283,8 @@ public class HorarioLivreResourceIT {
         List<HorarioLivre> horarioLivreList = horarioLivreRepository.findAll();
         assertThat(horarioLivreList).hasSize(databaseSizeBeforeUpdate);
         HorarioLivre testHorarioLivre = horarioLivreList.get(horarioLivreList.size() - 1);
-        assertThat(testHorarioLivre.getDataHoraInicio()).isEqualTo(UPDATED_DATA_HORA_INICIO);
-        assertThat(testHorarioLivre.getDataHoraFim()).isEqualTo(UPDATED_DATA_HORA_FIM);
+        assertThat(testHorarioLivre.getDataInicial()).isEqualTo(UPDATED_DATA_INICIAL);
+        assertThat(testHorarioLivre.getDataFinal()).isEqualTo(UPDATED_DATA_FINAL);
         assertThat(testHorarioLivre.isOcupado()).isEqualTo(UPDATED_OCUPADO);
 
         // Validate the HorarioLivre in Elasticsearch
@@ -348,8 +348,8 @@ public class HorarioLivreResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(horarioLivre.getId().intValue())))
-            .andExpect(jsonPath("$.[*].dataHoraInicio").value(hasItem(DEFAULT_DATA_HORA_INICIO.toString())))
-            .andExpect(jsonPath("$.[*].dataHoraFim").value(hasItem(DEFAULT_DATA_HORA_FIM.toString())))
+            .andExpect(jsonPath("$.[*].dataInicial").value(hasItem(DEFAULT_DATA_INICIAL.toString())))
+            .andExpect(jsonPath("$.[*].dataFinal").value(hasItem(DEFAULT_DATA_FINAL.toString())))
             .andExpect(jsonPath("$.[*].ocupado").value(hasItem(DEFAULT_OCUPADO.booleanValue())));
     }
 }

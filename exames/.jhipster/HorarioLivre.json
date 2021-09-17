@@ -2,12 +2,12 @@
   "name": "HorarioLivre",
   "fields": [
     {
-      "fieldName": "dataHoraInicio",
+      "fieldName": "dataInicial",
       "fieldType": "LocalDate",
       "fieldValidateRules": ["required"]
     },
     {
-      "fieldName": "dataHoraFim",
+      "fieldName": "dataFinal",
       "fieldType": "LocalDate",
       "fieldValidateRules": ["required"]
     },

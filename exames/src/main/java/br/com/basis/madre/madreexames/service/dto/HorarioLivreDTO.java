@@ -12,10 +12,10 @@ public class HorarioLivreDTO implements Serializable {
     private Long id;
 
     @NotNull
-    private LocalDate dataHoraInicio;
+    private LocalDate dataInicial;
 
     @NotNull
-    private LocalDate dataHoraFim;
+    private LocalDate dataFinal;
 
     @NotNull
     private Boolean ocupado;
@@ -31,20 +31,20 @@ public class HorarioLivreDTO implements Serializable {
         this.id = id;
     }
 
-    public LocalDate getDataHoraInicio() {
-        return dataHoraInicio;
+    public LocalDate getDataInicial() {
+        return dataInicial;
     }
 
-    public void setDataHoraInicio(LocalDate dataHoraInicio) {
-        this.dataHoraInicio = dataHoraInicio;
+    public void setDataInicial(LocalDate dataInicial) {
+        this.dataInicial = dataInicial;
     }
 
-    public LocalDate getDataHoraFim() {
-        return dataHoraFim;
+    public LocalDate getDataFinal() {
+        return dataFinal;
     }
 
-    public void setDataHoraFim(LocalDate dataHoraFim) {
-        this.dataHoraFim = dataHoraFim;
+    public void setDataFinal(LocalDate dataFinal) {
+        this.dataFinal = dataFinal;
     }
 
     public Boolean isOcupado() {
@@ -85,8 +85,8 @@ public class HorarioLivreDTO implements Serializable {
     public String toString() {
         return "HorarioLivreDTO{" +
             "id=" + getId() +
-            ", dataHoraInicio='" + getDataHoraInicio() + "'" +
-            ", dataHoraFim='" + getDataHoraFim() + "'" +
+            ", dataInicial='" + getDataInicial() + "'" +
+            ", dataFinal='" + getDataFinal() + "'" +
             ", ocupado='" + isOcupado() + "'" +
             ", horarioAgendadoId=" + getHorarioAgendadoId() +
             "}";
