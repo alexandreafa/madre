@@ -38,3 +38,53 @@
         </ng-template>
     </p-column>
 </basis-datatable>
+
+<div class="p-md-2 p-sm-12">
+    <p-button icon="pi pi-check" (click)="mostrarFormModal()" label="Gerar disponibilidade"></p-button>
+</div>
+
+<p-dialog header="Gerar disponibilidade de horários" [(visible)]="mostrarModal" [modal]="true" [style]="{width: '50vw'}"
+    [draggable]="false" [resizable]="false">
+    <span><b>Gerar disponibilidade para:</b></span>
+        <div class="p-md-3 p-fluid">
+            <span><b>Grade de Exame</b>: x </span>
+        </div>
+        <div class="p-md-3 p-fluid">
+            <span><b>Unidade Executora</b>: y </span>
+        </div>
+        <div class="p-md-3 p-fluid">
+            <span><b>Grupo</b>: z </span>
+        </div>
+
+    <span><b>Gerar disponibilidade entre:</b></span>
+
+    <div class="p-col-12 p-grid" style="margin-bottom: 300px;">
+        <div class="p-md-2">
+            Data inicial
+            <p-calendar inputId="dataInicial" dateFormat="dd/mm/yy" [monthNavigator]="true" [yearNavigator]="true" 
+            yearRange="2021:2030" [defaultDate]="" [(ngModel)]="dataInicial" >
+            </p-calendar>
+        </div> 
+
+        <div class="p-md-2">
+            Data final
+            <p-calendar inputId="dataFinal"  dateFormat="dd/mm/yy" [monthNavigator]="true" [yearNavigator]="true"
+            yearRange="2021:2030" [defaultDate]="" [(ngModel)]="dataFinal">
+            </p-calendar>
+        </div> 
+
+        <div class="p-md-3">
+            <span>Ocupado<br><br></span>
+            <p-radioButton name="ocupado" value="true" label="Sim" class="separator-radio" 
+            [(ngModel)]="ocupado"></p-radioButton>
+            <p-radioButton name="ocupado" value="false" label="Não" class="separator-radio" 
+            [(ngModel)]="ocupado"></p-radioButton>
+        </div>
+    </div>
+    
+        <ng-template pTemplate="footer">
+            <p-button icon="pi pi-check" (click)="gerarDisponibilidade()" [disabled]="!validarFormulario()"
+            label="Gerar"></p-button>
+            <p-button icon="pi pi-times" (click)="mostrarModal=false" label="Fechar"></p-button>
+        </ng-template>
+</p-dialog>

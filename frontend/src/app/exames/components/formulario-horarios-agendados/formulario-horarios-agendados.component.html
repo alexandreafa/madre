@@ -38,7 +38,6 @@
             formControlName="ativo"></p-radioButton>
             <p-radioButton name="ativo" value="false" label="Não" class="separator-radio" 
             formControlName="ativo"></p-radioButton>
-            
         </div>
     </div> 
 
@@ -89,7 +88,7 @@
 
 <div class="p-col-12 p-grid p-d-flex">
     
-    <div class="p-md-2 p-sm-12">
+    <div class="p-md-4 p-lg-2">
         <button
             pButton type="button" icon="pi pi-check" 
             (click)="agendarHorarioGrade()"
@@ -97,14 +96,14 @@
             label="Gerar"
         ></button>
     </div>
-    <div class="p-md-2 p-sm-12">
+    <div class="p-md-4 p-lg-2">
         <button
             pButton type="button"
             label="Limpar" icon="pi pi-times"
             (click)="limparFormulario()"
         ></button>
     </div>
-    <div class="p-md-2 p-sm-12">
+    <div class="p-md-4 p-lg-2">
         <button
             pButton type="button" label="Voltar"
             routerLink="/listar-grade-exame"

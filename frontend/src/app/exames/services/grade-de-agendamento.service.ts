@@ -5,6 +5,7 @@ import { GradesDeAgendamento } from '../models/subjects/grades-de-agendamento';
 import { Sala } from '../models/subjects/sala';
 import { TipoDeMarcacao } from '../models/subjects/tipo-de-marcacao';
 import { HorarioAgendado } from '../models/subjects/horario-agendado';
+import { HorarioLivre } from '../models/subjects/horario-livre';
 
 @Injectable({
   providedIn: 'root'
@@ -54,6 +55,10 @@ export class GradeDeAgendamentoService {
 
   cadastrarHorarioGrade(horarioGrade: HorarioAgendado) {
     return this.client.post(`${this.URL}/horario-agendados`, horarioGrade);
+  }
+
+  cadastrarHorarioLivre(horarioLivre: HorarioLivre) {
+    return this.client.post(`${this.URL}/horario-livres`, horarioLivre);
   }
 
 }
