@@ -1,5 +1,5 @@
 import { Time } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import * as moment from 'moment';
 import { MessageService } from 'primeng/api';
@@ -31,13 +31,13 @@ export class FormularioHorariosAgendadosComponent implements OnInit {
   @Input()
   grade: GradesDeAgendamento;
 
+  @Output() gradeAtual: GradesDeAgendamento;
+
   constructor(private gradeService: GradeDeAgendamentoService,
     private fb: FormBuilder, private msg: MessageService) { }
 
   ngOnInit(): void {
-    this.gradeService.getTiposDeMarcacao().subscribe((response) => {
-      this.tiposDeMarcacao = response;
-    });
+    this.listarTiposDeMarcacao();
   }
 
   agendarHorario = this.fb.group({
@@ -103,6 +103,13 @@ export class FormularioHorariosAgendadosComponent implements OnInit {
     this.diaSelecionado = null;
     this.horaFim = null;
     this.horaInicio = null;
+    this.tipoDeMarcacao = null;
+  }
+
+  listarTiposDeMarcacao() {
+    this.gradeService.getTiposDeMarcacao().subscribe((response) => {
+      this.tiposDeMarcacao = response;
+    });
   }
 
 }

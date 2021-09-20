@@ -28,10 +28,12 @@ export class TabelaHorariosAgendadosComponent implements OnInit {
   gradeDeAgendamentoId: string = '';
 
   horariosAgendados: HorarioAgendado[];
-  horariosPorGrade: HorarioAgendado[] = [];
+  horariosPorGrade: HorarioAgendado[];
 
   @Input()
   grade: GradesDeAgendamento;
+
+  @Input() gradeAtual: GradesDeAgendamento;
 
   constructor(private gradeAgendamentoService: GradeDeAgendamentoService) { }
 
@@ -42,6 +44,8 @@ export class TabelaHorariosAgendadosComponent implements OnInit {
 
   mostrarFormModal() {
     this.mostrarModal = true;
+    console.log('Agora: ', this.gradeAtual.id);
+    this.listarHorariosPorGrade();
   }
 
   listarHorariosAgendados() {
@@ -51,7 +55,7 @@ export class TabelaHorariosAgendadosComponent implements OnInit {
   }
 
   listarHorariosPorGrade() {
-    this.gradeAgendamentoService.getHorariosAgendadosPorGrade(this.gradeDeAgendamentoId).subscribe((response) => {
+    this.gradeAgendamentoService.getHorariosAgendadosPorGrade(this.gradeAtual.id.toString()).subscribe((response) => {
       this.horariosPorGrade = response;
     });
     console.log('HORÁRIOS POR GRADE:');

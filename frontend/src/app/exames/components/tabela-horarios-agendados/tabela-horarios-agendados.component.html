@@ -47,13 +47,13 @@
     [draggable]="false" [resizable]="false">
     <span><b>Gerar disponibilidade para:</b></span>
         <div class="p-md-3 p-fluid">
-            <span><b>Grade de Exame</b>: x </span>
+            <span><b>Grade de Exame</b>: {{ gradeAtual.id }} </span>
         </div>
         <div class="p-md-3 p-fluid">
-            <span><b>Unidade Executora</b>: y </span>
+            <span><b>Unidade Executora</b>: {{ gradeAtual.unidadeExecutoraNome }} </span>
         </div>
         <div class="p-md-3 p-fluid">
-            <span><b>Grupo</b>: z </span>
+            <span><b>Grupo</b>: {{ gradeAtual.grupoGradeNome }} </span>
         </div>
 
     <span><b>Gerar disponibilidade entre:</b></span>
@@ -79,6 +79,10 @@
             [(ngModel)]="ocupado"></p-radioButton>
             <p-radioButton name="ocupado" value="false" label="Não" class="separator-radio" 
             [(ngModel)]="ocupado"></p-radioButton>
+        </div>
+
+        <div class="p-md-3">
+            <p-dropdown [options]="horariosPorGrade" [optionLabel]="'duracao'" [optionValue]="'id'"></p-dropdown>
         </div>
     </div>
     
