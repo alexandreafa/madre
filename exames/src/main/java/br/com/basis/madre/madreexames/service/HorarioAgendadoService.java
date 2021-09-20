@@ -54,11 +54,12 @@ public class HorarioAgendadoService {
         log.debug("Request to save HorarioAgendado : {}", horarioAgendadoDTO);
         HorarioAgendado horarioAgendado = horarioAgendadoMapper.toEntity(horarioAgendadoDTO);
         horarioAgendado = horarioAgendadoRepository.save(horarioAgendado);
-        HorarioAgendadoDTO result = horarioAgendadoRepository.buscaPorId(horarioAgendado.getId());
-        calcularHoraFinal(result, horarioAgendadoDTO);
-        calcularNumeroDeHorarios(result, horarioAgendadoDTO);
-        horarioAgendadoSearchRepository.save(result);
-        return result;
+        horarioAgendadoDTO = horarioAgendadoMapper.toDto(horarioAgendado);
+        calcularHoraFinal(horarioAgendadoDTO, horarioAgendadoDTO);
+        calcularNumeroDeHorarios(horarioAgendadoDTO, horarioAgendadoDTO);
+
+        horarioAgendadoSearchRepository.save(horarioAgendadoDTO);
+        return horarioAgendadoDTO;
     }
 
     public void calcularHoraFinal(HorarioAgendadoDTO result, HorarioAgendadoDTO horarioAgendadoDTO) {
