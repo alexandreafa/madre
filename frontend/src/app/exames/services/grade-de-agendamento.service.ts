@@ -49,6 +49,15 @@ export class GradeDeAgendamentoService {
     return this.client.get<Array<HorarioAgendado>>(`${this.URL}/_search/horarios-agendados`);
   }
 
+  public getHorariosAgendadosPorGrade(
+    gradeDeAgendamentoId: string
+  ): Observable<Array<HorarioAgendado>> {
+    return this.client.get<Array<HorarioAgendado>>(`${this.URL}/_search/horarios-grades`, {
+      params: new HttpParams()
+      .set('gradeDeAgendamentoId', gradeDeAgendamentoId)
+    });
+  }
+
   cadastrarGrade(gradeDeAgendamento: GradesDeAgendamento) {
     return this.client.post(`${this.URL}/grade-de-agendamentos`, gradeDeAgendamento);
   }

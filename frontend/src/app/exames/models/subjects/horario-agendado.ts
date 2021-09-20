@@ -8,8 +8,8 @@ export class HorarioAgendado {
         public duracao?: moment.Duration,
         public ativo?: boolean,
         public exclusivo?: boolean,
-        public horarioAgendadoId?: number,
-        public horarioAgendadoDia?: string,
+        public tipoHorarioId?: number,
+        public tipoHorarioTipoDeMarcacao?: string,
         public gradeDeAgendamentoId?: number
     ) { }
 }

@@ -92,7 +92,7 @@ export class FormularioHorariosAgendadosComponent implements OnInit {
   }
 
   validarFormulario(): boolean {
-    if (this.agendarHorario.valid && (this.diaSelecionado &&this.horaInicio))
+    if (this.agendarHorario.valid && (this.diaSelecionado && this.horaInicio && this.tipoDeMarcacao))
       return true;
     else
       return false;

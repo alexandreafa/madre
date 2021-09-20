@@ -1,6 +1,5 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Pageable } from '@shared/pageable';
 import { Observable } from 'rxjs';
 import { SolicitacaoExame } from '../models/subjects/solicitacao-exame';
 
@@ -29,7 +28,6 @@ export class SolicitacaoExameService {
                 .set('id', id)
                 .set('pedidoPrimeiroExame', pedidoPrimeiroExame)
                 .set('usoAntimicrobianos24h', usoAntimicrobianos24h)
-                
         });
     }
 

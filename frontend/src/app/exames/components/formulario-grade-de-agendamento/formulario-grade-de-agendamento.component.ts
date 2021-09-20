@@ -36,16 +36,10 @@ export class FormularioGradeDeAgendamentoComponent implements OnInit {
   @Output()
   gradeSalva = new EventEmitter<GradesDeAgendamento>();
 
-  constructor(private fb: FormBuilder,
-    private gradeAgendamentoService: GradeDeAgendamentoService,
-    private unidadeFuncionalService: UnidadeFuncionalService,
-    private servidorService: ServidorService,
-    private exameService: ExamesService,
-    private grupoExameService: GruposExamesService,
-    private confirmacaoService: ConfirmationService,
-    private router: Router,
-    private msg: MessageService) { }
-
+  constructor(private fb: FormBuilder, private router: Router, private msg: MessageService,
+    private gradeAgendamentoService: GradeDeAgendamentoService, private unidadeFuncionalService: UnidadeFuncionalService,
+    private servidorService: ServidorService, private exameService: ExamesService,
+    private grupoExameService: GruposExamesService, private confirmacaoService: ConfirmationService) { }
 
   cadastroGrade = this.fb.group({
     unidadeExecutoraId: [null, Validators.required],
@@ -56,16 +50,16 @@ export class FormularioGradeDeAgendamentoComponent implements OnInit {
     salaGradeId: [null, Validators.required],
   });
 
-  validarFormulario(): boolean {
-    if (this.cadastroGrade.valid && (this.cadastroGrade
-      .get('grupoGradeId').value != null || this.cadastroGrade
-        .get('exameGradeId').value != null)) {
-      return true;
-    }
-  }
+  ngOnInit(): void {
+    this.listarUnidades();
 
-  limparFormulario() {
-    this.cadastroGrade.reset();
+    this.listarServidores();
+
+    this.listarSalas();
+
+    this.listarExames();
+
+    this.listarGrupos();
   }
 
   confirmarGravacaoDaGrade() {
@@ -105,33 +99,52 @@ export class FormularioGradeDeAgendamentoComponent implements OnInit {
       this.gradeSalva.emit(this.grade)
     });
 
-    this.cadastroGrade.reset();
+    this.limparFormulario();
     this.confirmarGravacaoDaGrade();
   }
 
-  ngOnInit(): void {
+  
+
+  listarUnidades() {
     this.unidadeFuncionalService.getUnidades().subscribe((response) => {
       this.unidadesExecutoras = response;
     });
+  }
 
+  listarServidores() {
     this.servidorService.getServidor().subscribe((response) => {
       this.servidores = response;
     });
+  }
 
+  listarSalas() {
     this.gradeAgendamentoService.getSalas().subscribe((response) => {
       this.salas = response;
     });
+  }
 
+  listarExames() {
     this.exameService.GetExames().subscribe((response) => {
       this.exames = response;
     });
+  }
 
+  listarGrupos() {
     this.grupoExameService.GetGrupos().subscribe((response) => {
       this.gruposDeExame = response;
     });
-
-
   }
 
+  validarFormulario(): boolean {
+    if (this.cadastroGrade.valid && (this.cadastroGrade
+      .get('grupoGradeId').value != null || this.cadastroGrade
+        .get('exameGradeId').value != null)) {
+      return true;
+    }
+  }
+
+  limparFormulario() {
+    this.cadastroGrade.reset();
+  }
 
 }

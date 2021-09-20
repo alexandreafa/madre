@@ -25,7 +25,10 @@ export class TabelaHorariosAgendadosComponent implements OnInit {
   dataFinal: Date;
   ocupado: boolean;
 
+  gradeDeAgendamentoId: string = '';
+
   horariosAgendados: HorarioAgendado[];
+  horariosPorGrade: HorarioAgendado[] = [];
 
   @Input()
   grade: GradesDeAgendamento;
@@ -34,6 +37,7 @@ export class TabelaHorariosAgendadosComponent implements OnInit {
 
   ngOnInit(): void {
     this.listarHorariosAgendados();
+    this.listarHorariosPorGrade();
   }
 
   mostrarFormModal() {
@@ -44,6 +48,14 @@ export class TabelaHorariosAgendadosComponent implements OnInit {
     this.gradeAgendamentoService.getHorariosAgendados().subscribe((response) => {
       this.horariosAgendados = response;
     });
+  }
+
+  listarHorariosPorGrade() {
+    this.gradeAgendamentoService.getHorariosAgendadosPorGrade(this.gradeDeAgendamentoId).subscribe((response) => {
+      this.horariosPorGrade = response;
+    });
+    console.log('HORÁRIOS POR GRADE:');
+    console.log(this.horariosAgendados);
   }
 
   gerarDisponibilidade() {
