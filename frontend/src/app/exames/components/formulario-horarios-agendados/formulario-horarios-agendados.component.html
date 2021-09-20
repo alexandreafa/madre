@@ -26,7 +26,7 @@
         <span class="md-inputfield p-float-label sm-top-margin">
             <p-dropdown [options]="tiposDeMarcacao" [optionLabel]="'tipoDeMarcacaoNome'" 
                 [optionValue]="'id'" [filter]="true" placeholder="Selecione"
-                [resetFilterOnHide]="true" [showClear]="true">
+                [resetFilterOnHide]="true" [showClear]="true" [(ngModel)]="tipoDeMarcacao">
             </p-dropdown>
         </span>
     </div>

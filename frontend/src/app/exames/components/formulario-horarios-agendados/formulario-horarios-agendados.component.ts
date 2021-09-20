@@ -25,6 +25,7 @@ export class FormularioHorariosAgendadosComponent implements OnInit {
   diaSelecionado: string;
   tiposDeMarcacao: TipoDeMarcacao[] = [];
   numeroDeHorarios: number;
+  tipoDeMarcacao: number;
 
 
   @Input()
@@ -66,6 +67,7 @@ export class FormularioHorariosAgendadosComponent implements OnInit {
       duracao: valorDuracao,
       ativo: cadastroHorario.ativo,
       exclusivo: cadastroHorario.exclusivo,
+      tipoHorarioId: this.tipoDeMarcacao,
       gradeDeAgendamentoId: this.grade.id
     };
 
