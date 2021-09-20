@@ -155,9 +155,9 @@ public class SolicitacaoExameResource {
 
     @GetMapping("/_search/solicitacoes-exames")
     public ResponseEntity<List<SolicitacaoExame>> obterTodasSilicitacoes(Pageable pageable,
-                                                                         @RequestParam(name = "id", required = false) String id,
-                                                                         @RequestParam(name = "pedidoPrimeiroExame", required = false) String pedidoPrimeiroExame,
-                                                                         @RequestParam(name = "usoAntimicrobianos24h", required = false) String usoAntimicrobianos24h
+         @RequestParam(name = "id", required = false) String id,
+         @RequestParam(name = "pedidoPrimeiroExame", required = false) String pedidoPrimeiroExame,
+         @RequestParam(name = "usoAntimicrobianos24h", required = false) String usoAntimicrobianos24h
     ) {
         log.debug("Request REST para obter uma página de solicitações de exame.");
         Page<SolicitacaoExame> page = solicitacaoExameService.filtraSolicitacaoExame(pageable, id, pedidoPrimeiroExame, usoAntimicrobianos24h);

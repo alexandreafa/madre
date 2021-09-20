@@ -163,4 +163,15 @@ public class HorarioAgendadoResource {
             .generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
+    @GetMapping("/_search/horarios-grades")
+    public ResponseEntity<List<HorarioAgendadoDTO>> obterHorariosPorGrade(Pageable pageable,
+        @RequestParam(name = "id", required = false) String id,
+        @RequestParam(name = "gradeDeAgendamentoId", required = false) String gradeDeAgendamentoId
+    ) {
+        log.debug("Request REST para obter uma página de solicitações de exame.");
+        Page<HorarioAgendadoDTO> page = horarioAgendadoService.filtraHorarioPorGrade(pageable, id, gradeDeAgendamentoId);
+        HttpHeaders headers = PaginationUtil
+            .generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
 }

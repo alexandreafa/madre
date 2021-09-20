@@ -148,6 +148,18 @@ public class HorarioAgendadoService {
         return horarioAgendadoSearchRepository.search(query);
     }
 
+    @Transactional(readOnly = true)
+    public Page<HorarioAgendadoDTO> filtraHorarioPorGrade(Pageable pageable, String id, String gradeDeAgendamentoId) {
+        BoolQueryBuilder queryBuilder = QueryBuilders.boolQuery();
+        filter(queryBuilder, "id", id);
+        filter(queryBuilder, "gradeDeAgendamentoId", gradeDeAgendamentoId);
+        SearchQuery query = new NativeSearchQueryBuilder()
+            .withQuery(queryBuilder)
+            .withPageable(pageable)
+            .build();
+        return horarioAgendadoSearchRepository.search(query);
+    }
+
     private void filter(BoolQueryBuilder queryBuilder, String name, String valueName) {
         if (!Strings.isNullOrEmpty(valueName)) {
             queryBuilder.must(QueryBuilders.matchQuery(name,valueName));
