@@ -1,6 +1,7 @@
 import { Time } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { DatatableComponent } from '@nuvem/primeng-components';
 import * as moment from 'moment';
 import { MessageService } from 'primeng/api';
 import { DiaSemana } from '../../models/dropdowns/dia.dropdown';
@@ -8,6 +9,7 @@ import { GradesDeAgendamento } from '../../models/subjects/grades-de-agendamento
 import { HorarioAgendado } from '../../models/subjects/horario-agendado';
 import { TipoDeMarcacao } from '../../models/subjects/tipo-de-marcacao';
 import { GradeDeAgendamentoService } from '../../services/grade-de-agendamento.service';
+import { TabelaHorariosAgendadosComponent } from '../tabela-horarios-agendados/tabela-horarios-agendados.component';
 
 @Component({
   selector: 'app-formulario-horarios-agendados',
@@ -32,6 +34,9 @@ export class FormularioHorariosAgendadosComponent implements OnInit {
 
   @Output()
   gradeAtual: GradesDeAgendamento;
+
+  @ViewChild(TabelaHorariosAgendadosComponent)
+  appTabela: TabelaHorariosAgendadosComponent;
 
   constructor(private gradeService: GradeDeAgendamentoService,
     private fb: FormBuilder, private msg: MessageService) { }
@@ -65,7 +70,13 @@ export class FormularioHorariosAgendadosComponent implements OnInit {
      .validarHoraInicioDepoisDeHoraFim(this.horaInicio, this.horaFim)){
       return;
     }else {
-      this.gradeService.cadastrarHorarioGrade(cadastro).subscribe();
+      this.gradeService.cadastrarHorarioGrade(cadastro).subscribe((response) => {
+        if (response != undefined) {
+          this.appTabela.recarregarTabela();
+        }
+      }
+
+      );
       this.limparFormulario();
     }
   }

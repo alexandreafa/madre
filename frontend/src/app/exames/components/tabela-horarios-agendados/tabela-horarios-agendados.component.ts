@@ -1,4 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { DatatableComponent } from '@nuvem/primeng-components';
+import { ElasticQuery } from '@shared/elastic-query';
 import { GradesDeAgendamento } from '../../models/subjects/grades-de-agendamento';
 import { HorarioAgendado } from '../../models/subjects/horario-agendado';
 import { HorarioLivre } from '../../models/subjects/horario-livre';
@@ -25,8 +27,6 @@ export class TabelaHorariosAgendadosComponent implements OnInit {
   dataFinal: Date;
   ocupado: boolean;
 
-  gradeDeAgendamentoId: string = '';
-
   horariosAgendados: HorarioAgendado[];
   horariosPorGrade: HorarioAgendado[];
 
@@ -34,6 +34,11 @@ export class TabelaHorariosAgendadosComponent implements OnInit {
   grade: GradesDeAgendamento;
 
   @Input() gradeAtual: GradesDeAgendamento;
+
+  @ViewChild(DatatableComponent)
+  dataTable: DatatableComponent;
+
+  elasticQuery: ElasticQuery = new ElasticQuery();
 
   constructor(private gradeAgendamentoService: GradeDeAgendamentoService) { }
 
@@ -45,7 +50,6 @@ export class TabelaHorariosAgendadosComponent implements OnInit {
   mostrarFormModal() {
     this.mostrarModal = true;
     console.log('Agora: ', this.gradeAtual.id);
-    this.listarHorariosPorGrade();
   }
 
   listarHorariosAgendados() {
@@ -55,7 +59,9 @@ export class TabelaHorariosAgendadosComponent implements OnInit {
   }
 
   listarHorariosPorGrade() {
-    this.gradeAgendamentoService.getHorariosAgendadosPorGrade(this.gradeAtual.id.toString()).subscribe((response) => {
+  let gradeDeAgendamentoId: string = this.gradeAtual.id.toString();
+
+    this.gradeAgendamentoService.getHorariosAgendadosPorGrade(gradeDeAgendamentoId).subscribe((response) => {
       this.horariosPorGrade = response;
     });
   }
@@ -81,6 +87,11 @@ export class TabelaHorariosAgendadosComponent implements OnInit {
     if (this.dataFinal && this.ocupado != null && this.dataInicial) {
       return true;
     }
+  }
+
+  recarregarTabela() {
+    this.dataTable.reset();
+    // this.dataTable.refresh(this.elasticQuery.query);
   }
 
 }
