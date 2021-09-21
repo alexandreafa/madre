@@ -45,7 +45,6 @@
 
 <p-dialog header="Gerar disponibilidade de horários" [(visible)]="mostrarModal" [modal]="true" [style]="{width: '50vw'}"
     [draggable]="false" [resizable]="false">
-    <span><b>Gerar disponibilidade para:</b></span>
         <div class="p-md-3 p-fluid">
             <span><b>Grade de Exame</b>: {{ gradeAtual.id }} </span>
         </div>
@@ -54,9 +53,11 @@
         </div>
         <div class="p-md-3 p-fluid">
             <span><b>Grupo</b>: {{ gradeAtual.grupoGradeNome }} </span>
-        </div>
+        </div><br>
 
-    <span><b>Gerar disponibilidade entre:</b></span>
+        <div class="p-md-3 p-fluid">
+            <span><b>Gerar disponibilidade entre:</b></span>
+        </div>
 
     <div class="p-col-12 p-grid" style="margin-bottom: 300px;">
         <div class="p-md-2">
@@ -79,10 +80,6 @@
             [(ngModel)]="ocupado"></p-radioButton>
             <p-radioButton name="ocupado" value="false" label="Não" class="separator-radio" 
             [(ngModel)]="ocupado"></p-radioButton>
-        </div>
-
-        <div class="p-md-3">
-            <p-dropdown [options]="horariosPorGrade" [optionLabel]="'duracao'" [optionValue]="'id'"></p-dropdown>
         </div>
     </div>
     

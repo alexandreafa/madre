@@ -27,11 +27,11 @@ export class FormularioHorariosAgendadosComponent implements OnInit {
   numeroDeHorarios: number;
   tipoDeMarcacao: number;
 
-
   @Input()
   grade: GradesDeAgendamento;
 
-  @Output() gradeAtual: GradesDeAgendamento;
+  @Output()
+  gradeAtual: GradesDeAgendamento;
 
   constructor(private gradeService: GradeDeAgendamentoService,
     private fb: FormBuilder, private msg: MessageService) { }
@@ -50,45 +50,58 @@ export class FormularioHorariosAgendadosComponent implements OnInit {
   agendarHorarioGrade() {
     const cadastroHorario = this.agendarHorario.value;
 
-    let dataDuracao: Date = cadastroHorario.duracao;
-
-    let valorDuracao: moment.Duration = moment.duration({
-      minutes: dataDuracao.getMinutes(),
-      hours: dataDuracao.getHours()
-    });
-
     const cadastro: HorarioAgendado = {
-      horaFim: this.horaFim != null ? new Date(Date.UTC(this.horaFim.getFullYear(),this.horaFim.getMonth(),
-        this.horaFim.getDate(), this.horaFim.getHours(), this.horaFim.getMinutes())) : null,
-      horaInicio: new Date(Date.UTC(this.horaInicio.getFullYear(),this.horaInicio.getMonth(),
-        this.horaInicio.getDate(), this.horaInicio.getHours(), this.horaInicio.getMinutes())),
-      numeroDeHorarios: cadastroHorario.numeroDeHorarios,
+      horaInicio: this.gerarHora(this.horaInicio),
+      horaFim: this.horaFim != null ? this.gerarHora(this.horaFim) : null,
       dia: this.diaSelecionado,
-      duracao: valorDuracao,
+      duracao: this.gerarDuracao(cadastroHorario.duracao),
       ativo: cadastroHorario.ativo,
       exclusivo: cadastroHorario.exclusivo,
       tipoHorarioId: this.tipoDeMarcacao,
       gradeDeAgendamentoId: this.grade.id
     };
 
-    if (this.numeroDeHorarios != null && this.horaFim != null) {
-      this.msg.add({
-        severity: 'error', summary: 'Erro no preenchimento',
-        detail: 'Não informar hora fim e número de horários ao mesmo tempo.'
-      })
+     if (this.validarHoraOuNumeroDeHorarios(this.numeroDeHorarios, this.horaFim) || this
+     .validarHoraInicioDepoisDeHoraFim(this.horaInicio, this.horaFim)){
       return;
+    }else {
+      this.gradeService.cadastrarHorarioGrade(cadastro).subscribe();
+      this.limparFormulario();
     }
+  }
 
-    if (moment(this.horaInicio).isAfter(this.horaFim) && this.horaFim != null) {
+  gerarHora(horaPreenchida: Date) {
+    let horaGerada = new Date(Date.UTC(horaPreenchida.getFullYear(), horaPreenchida.getMonth(), horaPreenchida.getDate(),
+    horaPreenchida.getHours(), horaPreenchida.getMinutes()));
+    return horaGerada;
+  }
+
+  gerarDuracao(dataPreenchida: Date): moment.Duration {
+    let valorDuracao = moment.duration({
+      minutes: dataPreenchida.getMinutes(),
+      hours: dataPreenchida.getHours()
+    });
+    return valorDuracao;
+  }
+
+  validarHoraInicioDepoisDeHoraFim(horaInicio: Date, horaFim: Date): boolean {
+    if (moment(horaInicio).isAfter(horaFim) && horaFim != null) {
       this.msg.add({
         severity: 'error', summary: 'Erro no preenchimento',
         detail: 'Hora fim deve ser depois de hora início.'
       })
-      return;
+      return true;
     }
+  }
 
-    this.gradeService.cadastrarHorarioGrade(cadastro).subscribe();
-    this.limparFormulario();
+  validarHoraOuNumeroDeHorarios(numeroDeHorarios: number, horaFim: Date): boolean {
+    if (numeroDeHorarios != null && horaFim != null) {
+      this.msg.add({
+        severity: 'error', summary: 'Erro no preenchimento',
+        detail: 'Não informar hora fim e número de horários ao mesmo tempo.'
+      })
+      return true;
+    }
   }
 
   validarFormulario(): boolean {

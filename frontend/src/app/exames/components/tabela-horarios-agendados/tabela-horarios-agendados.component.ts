@@ -58,8 +58,6 @@ export class TabelaHorariosAgendadosComponent implements OnInit {
     this.gradeAgendamentoService.getHorariosAgendadosPorGrade(this.gradeAtual.id.toString()).subscribe((response) => {
       this.horariosPorGrade = response;
     });
-    console.log('HORÁRIOS POR GRADE:');
-    console.log(this.horariosAgendados);
   }
 
   gerarDisponibilidade() {

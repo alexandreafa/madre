@@ -21,7 +21,6 @@ export class GradeAgendamentosComponent implements OnInit {
 
   onGradeSalva(gradeSalva: GradesDeAgendamento){
     this.gradeCadastrada = gradeSalva;
-    console.log(gradeSalva);
   }
 
 }
