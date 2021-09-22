@@ -38,8 +38,6 @@ export class TabelaHorariosAgendadosComponent implements OnInit {
   @ViewChild(DatatableComponent)
   dataTable: DatatableComponent;
 
-  elasticQuery: ElasticQuery = new ElasticQuery();
-
   constructor(private gradeAgendamentoService: GradeDeAgendamentoService) { }
 
   ngOnInit(): void {
@@ -49,7 +47,6 @@ export class TabelaHorariosAgendadosComponent implements OnInit {
 
   mostrarFormModal() {
     this.mostrarModal = true;
-    console.log('Agora: ', this.gradeAtual.id);
   }
 
   listarHorariosAgendados() {
@@ -87,11 +84,6 @@ export class TabelaHorariosAgendadosComponent implements OnInit {
     if (this.dataFinal && this.ocupado != null && this.dataInicial) {
       return true;
     }
-  }
-
-  recarregarTabela() {
-    this.dataTable.reset();
-    // this.dataTable.refresh(this.elasticQuery.query);
   }
 
 }

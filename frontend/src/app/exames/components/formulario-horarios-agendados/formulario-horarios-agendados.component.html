@@ -71,7 +71,7 @@
 
     <div class="p-md-2 p-fluid sm-top-margin" [formGroup]="agendarHorario">
         Duração
-        <p-calendar [(ngModel)]="duracao" [timeOnly]="true" inputId="duracao"
+        <p-calendar [timeOnly]="true" inputId="duracao"
         formControlName="duracao" [defaultDate]="duracaoPadrao" [stepMinute]="5">
         </p-calendar>
     </div>
@@ -79,7 +79,7 @@
     <div class="p-md-2 p-fluid sm-top-margin" [formGroup]="agendarHorario">
         Nº de horários
         <span class="md-inputfield p-float-label">
-            <input type="number" [(ngModel)]="numeroDeHorarios" formControlName="numeroDeHorarios" pInputText>
+            <input type="number" [(ngModel)]="numeroDeHorarios" formControlName="numeroDeHorarios" [disabled]=true pInputText>
         </span>
     </div>
     

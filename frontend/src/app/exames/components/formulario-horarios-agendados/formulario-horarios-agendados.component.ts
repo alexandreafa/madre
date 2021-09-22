@@ -1,7 +1,5 @@
-import { Time } from '@angular/common';
 import { Component, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { DatatableComponent } from '@nuvem/primeng-components';
 import * as moment from 'moment';
 import { MessageService } from 'primeng/api';
 import { DiaSemana } from '../../models/dropdowns/dia.dropdown';
@@ -20,7 +18,6 @@ export class FormularioHorariosAgendadosComponent implements OnInit {
 
   horaInicio: Date;
   horaFim: Date;
-  duracao: Time;
   duracaoPadrao = new Date('December 31, 2021 00:30:00');
   horaPadrao = new Date('December 31, 2020 12:00:00');
   dia = DiaSemana;
@@ -62,6 +59,7 @@ export class FormularioHorariosAgendadosComponent implements OnInit {
       duracao: this.gerarDuracao(cadastroHorario.duracao),
       ativo: cadastroHorario.ativo,
       exclusivo: cadastroHorario.exclusivo,
+      numeroDeHorarios: cadastroHorario.numeroDeHorarios,
       tipoHorarioId: this.tipoDeMarcacao,
       gradeDeAgendamentoId: this.grade.id
     };
@@ -70,14 +68,10 @@ export class FormularioHorariosAgendadosComponent implements OnInit {
      .validarHoraInicioDepoisDeHoraFim(this.horaInicio, this.horaFim)){
       return;
     }else {
-      this.gradeService.cadastrarHorarioGrade(cadastro).subscribe((response) => {
-        if (response != undefined) {
-          this.appTabela.recarregarTabela();
-        }
-      }
-
-      );
-      this.limparFormulario();
+      this.gradeService.cadastrarHorarioGrade(cadastro).subscribe(() => {
+          this.appTabela.listarHorariosPorGrade();
+        });
+        this.limparFormulario();
     }
   }
 
