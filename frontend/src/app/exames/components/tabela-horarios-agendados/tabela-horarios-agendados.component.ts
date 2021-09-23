@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { DatatableComponent } from '@nuvem/primeng-components';
-import { ElasticQuery } from '@shared/elastic-query';
+import * as moment from 'moment';
+import { MessageService } from 'primeng/api';
 import { GradesDeAgendamento } from '../../models/subjects/grades-de-agendamento';
 import { HorarioAgendado } from '../../models/subjects/horario-agendado';
 import { HorarioLivre } from '../../models/subjects/horario-livre';
@@ -27,6 +28,8 @@ export class TabelaHorariosAgendadosComponent implements OnInit {
   dataFinal: Date;
   ocupado: boolean;
 
+  dataMinima: Date = new Date;
+
   horariosAgendados: HorarioAgendado[];
   horariosPorGrade: HorarioAgendado[];
 
@@ -38,7 +41,8 @@ export class TabelaHorariosAgendadosComponent implements OnInit {
   @ViewChild(DatatableComponent)
   dataTable: DatatableComponent;
 
-  constructor(private gradeAgendamentoService: GradeDeAgendamentoService) { }
+  constructor(private gradeAgendamentoService: GradeDeAgendamentoService,
+              private msg: MessageService) { }
 
   ngOnInit(): void {
     this.listarHorariosAgendados();
@@ -70,14 +74,28 @@ export class TabelaHorariosAgendadosComponent implements OnInit {
       ocupado: this.ocupado
     };
 
-    this.gradeAgendamentoService.cadastrarHorarioLivre(horarioLivre).subscribe();
-    this.limparFormulario();
+    if (this.isDataFimAntesDeDataInicio(this.dataInicial, this.dataFinal)) {
+      return;
+    }else {
+      this.gradeAgendamentoService.cadastrarHorarioLivre(horarioLivre).subscribe();
+      this.limparFormulario();
+    }
   }
 
   limparFormulario() {
     this.ocupado = null;
     this.dataInicial = null;
     this.dataFinal = null;
+  }
+
+  isDataFimAntesDeDataInicio(dataInicial: Date, dataFinal: Date): boolean {
+    if (moment(dataFinal).isBefore(dataInicial)) {
+      this.msg.add({
+        severity: 'error', summary: 'Erro no preenchimento',
+        detail: 'Data inicial deve ser antes da data final.'
+      });
+      return true;
+    }
   }
 
   validarFormulario(): boolean {

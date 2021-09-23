@@ -64,8 +64,9 @@ export class FormularioHorariosAgendadosComponent implements OnInit {
       gradeDeAgendamentoId: this.grade.id
     };
 
-     if (this.validarHoraOuNumeroDeHorarios(this.numeroDeHorarios, this.horaFim) || this
-     .validarHoraInicioDepoisDeHoraFim(this.horaInicio, this.horaFim)){
+     if (this.isHoraFinalOuNumeroDeHorariosNulo(this.numeroDeHorarios, this.horaFim) || this
+     .isHoraInicioDepoisDeHoraFim(this.horaInicio, this.horaFim) || this
+     .isNumeroDeHorariosMaiorQueZero(this.numeroDeHorarios, this.horaFim)){
       return;
     }else {
       this.gradeService.cadastrarHorarioGrade(cadastro).subscribe(() => {
@@ -89,7 +90,7 @@ export class FormularioHorariosAgendadosComponent implements OnInit {
     return valorDuracao;
   }
 
-  validarHoraInicioDepoisDeHoraFim(horaInicio: Date, horaFim: Date): boolean {
+  isHoraInicioDepoisDeHoraFim(horaInicio: Date, horaFim: Date): boolean {
     if (moment(horaInicio).isAfter(horaFim) && horaFim != null) {
       this.msg.add({
         severity: 'error', summary: 'Erro no preenchimento',
@@ -99,11 +100,21 @@ export class FormularioHorariosAgendadosComponent implements OnInit {
     }
   }
 
-  validarHoraOuNumeroDeHorarios(numeroDeHorarios: number, horaFim: Date): boolean {
+  isHoraFinalOuNumeroDeHorariosNulo(numeroDeHorarios: number, horaFim: Date): boolean {
     if (numeroDeHorarios != null && horaFim != null) {
       this.msg.add({
         severity: 'error', summary: 'Erro no preenchimento',
         detail: 'Não informar hora fim e número de horários ao mesmo tempo.'
+      })
+      return true;
+    }
+  }
+
+  isNumeroDeHorariosMaiorQueZero(numeroDeHorarios: number, horaFim: Date): boolean {
+    if (numeroDeHorarios <= 0 && horaFim == null) {
+      this.msg.add({
+        severity: 'error', summary: 'Erro no preenchimento',
+        detail: 'O número de horários deve ser maior que zero.'
       })
       return true;
     }

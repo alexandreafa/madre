@@ -8,7 +8,7 @@ import java.io.Serializable;
  * A DTO for the {@link br.com.basis.madre.madreexames.domain.HorarioLivre} entity.
  */
 public class HorarioLivreDTO implements Serializable {
-    
+
     private Long id;
 
     @NotNull
@@ -22,7 +22,7 @@ public class HorarioLivreDTO implements Serializable {
 
 
     private Long horarioAgendadoId;
-    
+
     public Long getId() {
         return id;
     }
@@ -61,6 +61,11 @@ public class HorarioLivreDTO implements Serializable {
 
     public void setHorarioAgendadoId(Long horarioAgendadoId) {
         this.horarioAgendadoId = horarioAgendadoId;
+    }
+
+    @AssertFalse(message = "Data inicial deve ser antes da data final.")
+    private boolean isDataFimAntesDeDataInicio() {
+        return getDataFinal().isBefore(getDataInicial());
     }
 
     @Override
