@@ -26,6 +26,8 @@ export class FormularioHorariosAgendadosComponent implements OnInit {
   numeroDeHorarios: number;
   tipoDeMarcacao: number;
 
+  mostrarTabela: boolean = false;
+
   @Input()
   grade: GradesDeAgendamento;
 
@@ -73,6 +75,7 @@ export class FormularioHorariosAgendadosComponent implements OnInit {
           this.appTabela.listarHorariosPorGrade();
         });
         this.limparFormulario();
+        this.mostrarTabela = true;
     }
   }
 

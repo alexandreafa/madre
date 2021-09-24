@@ -45,32 +45,21 @@ export class ListarGradeDeExameComponent implements OnInit {
 
 
   constructor(private gradeAgendamentoService: GradeDeAgendamentoService,
-    private unidadeFuncionalService: UnidadeFuncionalService,
-    private servidorService: ServidorService,
-    private exameService: ExamesService,
-    private grupoExameService: GruposExamesService) { }
-
+              private unidadeFuncionalService: UnidadeFuncionalService,
+              private servidorService: ServidorService,
+              private exameService: ExamesService,
+              private grupoExameService: GruposExamesService) { }
 
   ngOnInit(): void {
-    this.unidadeFuncionalService.getUnidades().subscribe((response) => {
-      this.unidadesExecutoras = response;
-    });
+    this.listarUnidades();
 
-    this.servidorService.getServidor().subscribe((response) => {
-      this.servidores = response;
-    });
+    this.listarServidores();
 
-    this.gradeAgendamentoService.getSalas().subscribe((response) => {
-      this.salas = response;
-    });
+    this.listarSalas();
 
-    this.exameService.GetExames().subscribe((response) => {
-      this.exames = response;
-    });
+    this.listarExames();
 
-    this.grupoExameService.GetGrupos().subscribe((response) => {
-      this.gruposDeExame = response;
-    });
+    this.listarGruposDeExames();
 
     this.listarGrades();
   }
@@ -81,6 +70,45 @@ export class ListarGradeDeExameComponent implements OnInit {
       .subscribe((response) => {
         this.gradeAgendamento = response;
        });
+  }
+
+  listarUnidades() {
+    this.unidadeFuncionalService.getUnidades().subscribe((response) => {
+      this.unidadesExecutoras = response;
+    });
+  }
+
+  listarServidores() {
+    this.servidorService.getServidor().subscribe((response) => {
+      this.servidores = response;
+    });
+  }
+
+  listarSalas() {
+    this.gradeAgendamentoService.getSalas().subscribe((response) => {
+      this.salas = response;
+    });
+  }
+
+  listarExames() {
+    this.exameService.getExames().subscribe((response) => {
+      this.exames = response;
+    });
+  }
+
+  listarGruposDeExames() {
+    this.grupoExameService.GetGrupos().subscribe((response) => {
+      this.gruposDeExame = response;
+    });
+  }
+
+  limparFiltros() {
+    this.id = '';
+    this.unidadeExecutoraId = '';
+    this.ativo = '';
+    this.grupoAgendamentoExameId = '';
+    this.exameId = '';
+    this.responsavelId = '';
   }
 
 }

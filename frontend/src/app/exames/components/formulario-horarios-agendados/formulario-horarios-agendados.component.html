@@ -106,9 +106,10 @@
     <div class="p-md-4 p-lg-2">
         <button
             pButton type="button" label="Voltar"
+            icon="pi pi-arrow-left"
             routerLink="/listar-grade-exame"
         ></button>
     </div>
 </div>
 
-<app-tabela-horarios-agendados #appTabela #appTabelaHorarios [gradeAtual]="grade"></app-tabela-horarios-agendados>
+<app-tabela-horarios-agendados *ngIf="mostrarTabela" #appTabela #appTabelaHorarios [gradeAtual]="grade"></app-tabela-horarios-agendados>

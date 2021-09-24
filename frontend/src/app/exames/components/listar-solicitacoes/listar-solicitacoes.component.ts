@@ -12,7 +12,7 @@ export class ListarSolicitacoesComponent implements OnInit {
 
   id: string = '';
   pedidoPrimeiroExame: string = '';
-  usoAntimicrobianos24h: string = ''
+  usoAntimicrobianos24h: string = '';
   situacao: string = '';
   infoClinica: string = '';
   results = [];
@@ -65,7 +65,9 @@ export class ListarSolicitacoesComponent implements OnInit {
   }
 
   limparPesquisa(){
-
+    this.id = '';
+    this.pedidoPrimeiroExame = '';
+    this.usoAntimicrobianos24h = '';
   }
 
 }

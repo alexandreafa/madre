@@ -124,7 +124,7 @@ export class FormularioGradeDeAgendamentoComponent implements OnInit {
   }
 
   listarExames() {
-    this.exameService.GetExames().subscribe((response) => {
+    this.exameService.getExames().subscribe((response) => {
       this.exames = response;
     });
   }
