@@ -17,9 +17,9 @@
                 </div>
                 <div class="p-md-2 p-sm-12">
                     <p-dropdown
-                        [(ngModel)]="unidadeExecutoraId" [filter]="true"
+                        [(ngModel)]="unidadeExecutoraNome" [filter]="true"
                         [resetFilterOnHide]="true" [options]="unidadesExecutoras" [optionLabel]="'nome'"
-                        [optionValue]="'id'" placeholder="Unidade executora"
+                        [optionValue]="'nome'" placeholder="Unidade executora"
                     ></p-dropdown>
                 </div>
                 <div class="p-md-2 p-sm-12">
@@ -33,22 +33,22 @@
             <div class="p-col-12 p-grid">
                 <div class="p-md-2 p-sm-12">
                     <p-dropdown
-                        [(ngModel)]="grupoAgendamentoExameId" [filter]="true" [resetFilterOnHide]="true"
-                        [options]="gruposDeExame" [optionLabel]="'nome'" [optionValue]="'id'"
+                        [(ngModel)]="grupoGradeNome" [filter]="true" [resetFilterOnHide]="true"
+                        [options]="gruposDeExame" [optionLabel]="'nome'" [optionValue]="'nome'"
                         placeholder="Grupo de exames"
                     ></p-dropdown>
                 </div>
                 <div class="p-md-2 p-sm-12">
                     <p-dropdown
-                        [(ngModel)]="exameId" [filter]="true" [resetFilterOnHide]="true"
-                        [options]="exames" [optionLabel]="'nome'" [optionValue]="'id'"
+                        [(ngModel)]="exameGradeNome" [filter]="true" [resetFilterOnHide]="true"
+                        [options]="exames" [optionLabel]="'nome'" [optionValue]="'nome'"
                         placeholder="Exame"
                     ></p-dropdown>
                 </div>
                 <div class="p-md-2 p-sm-12">
                     <p-dropdown
-                        [(ngModel)]="responsavelId" [filter]="true" [resetFilterOnHide]="true"
-                        [options]="servidores" [optionLabel]="'pessoaNome'" [optionValue]="'id'"
+                        [(ngModel)]="responsavelNome" [filter]="true" [resetFilterOnHide]="true"
+                        [options]="servidores" [optionLabel]="'pessoaNome'" [optionValue]="'pessoaNome'"
                         placeholder="Responsável"
                     ></p-dropdown>
                 </div>

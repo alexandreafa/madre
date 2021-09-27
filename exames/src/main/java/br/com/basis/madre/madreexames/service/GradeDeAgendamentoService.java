@@ -124,14 +124,14 @@ public class GradeDeAgendamentoService {
     }
 
     @Transactional(readOnly = true)
-    public Page<GradeDeAgendamentoDTO>  filtraGradeAgendamento(Pageable pageable, String id, String unidadeExecutoraId, String ativo, String grupoAgendamentoExameId, String exameGradeId, String responsavelId) {
+    public Page<GradeDeAgendamentoDTO>  filtraGradeAgendamento(Pageable pageable, String id, String unidadeExecutoraNome, String ativo, String grupoGradeNome, String exameGradeNome, String responsavelNome) {
         BoolQueryBuilder queryBuilder = QueryBuilders.boolQuery();
         filter(queryBuilder, "id", id);
-        filter(queryBuilder, "unidadeExecutoraId", unidadeExecutoraId);
+        filter(queryBuilder, "unidadeExecutoraNome", unidadeExecutoraNome);
         filter(queryBuilder, "ativo", ativo);
-        filter(queryBuilder, "grupoAgendamentoExameId", grupoAgendamentoExameId);
-        filter(queryBuilder, "exameGradeId", exameGradeId);
-        filter(queryBuilder, "responsavelId", responsavelId);
+        filter(queryBuilder, "grupoGradeNome", grupoGradeNome);
+        filter(queryBuilder, "exameGradeNome", exameGradeNome);
+        filter(queryBuilder, "responsavelNome", responsavelNome);
         SearchQuery query = new NativeSearchQueryBuilder()
             .withQuery(queryBuilder)
             .withPageable(pageable)

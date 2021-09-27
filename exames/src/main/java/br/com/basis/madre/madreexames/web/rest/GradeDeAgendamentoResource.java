@@ -142,15 +142,15 @@ public class GradeDeAgendamentoResource {
     @GetMapping("/_search/grades-de-agendamento")
     public ResponseEntity<List<GradeDeAgendamentoDTO>> obterTodasGrades(Pageable pageable,
         @RequestParam(name = "id", required = false) String id,
-        @RequestParam(name = "unidadeExecutoraId", required = false) String unidadeExecutoraId,
+        @RequestParam(name = "unidadeExecutoraNome", required = false) String unidadeExecutoraNome,
         @RequestParam(name = "ativo", required = false) String ativo,
-        @RequestParam(name = "grupoAgendamentoExameId", required = false) String grupoAgendamentoExameId,
-        @RequestParam(name = "exameGradeId", required = false) String exameGradeId,
-        @RequestParam(name = "responsavelId", required = false) String responsavelId
+        @RequestParam(name = "grupoGradeNome", required = false) String grupoGradeNome,
+        @RequestParam(name = "exameGradeNome", required = false) String exameGradeId,
+        @RequestParam(name = "responsavelNome", required = false) String responsavelNome
     ){
         log.debug("Request REST para obter uma página de Grades de agendamento de exame.");
         Page<GradeDeAgendamentoDTO> page = gradeDeAgendamentoService.filtraGradeAgendamento(
-            pageable, id, unidadeExecutoraId, ativo, grupoAgendamentoExameId, exameGradeId, responsavelId);
+            pageable, id, unidadeExecutoraNome, ativo, grupoGradeNome, exameGradeId, responsavelNome);
         HttpHeaders headers = PaginationUtil
             .generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());

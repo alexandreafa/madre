@@ -22,18 +22,18 @@ export class GradeDeAgendamentoService {
     id: string,
     unidadeExecutoraId: string,
     ativo: string,
-    grupoAgendamentoExameId: string,
-    exameGradeId: string,
-    responsavelId: string
+    grupoGradeNome: string,
+    exameGradeNome: string,
+    responsavelNome: string
   ): Observable<GradesDeAgendamento[]> {
     return this.client.get<GradesDeAgendamento[]>(`${this.URL}/_search/grades-de-agendamento`, {
       params: new HttpParams()
         .set('id', id)
         .set('unidadeExecutoraId', unidadeExecutoraId)
         .set('ativo', ativo)
-        .set('grupoAgendamentoExameId', grupoAgendamentoExameId)
-        .set('exameGradeId', exameGradeId)
-        .set('responsavelId', responsavelId)
+        .set('grupoGradeNome', grupoGradeNome)
+        .set('exameGradeNome', exameGradeNome)
+        .set('responsavelNome', responsavelNome)
     });
   }
 

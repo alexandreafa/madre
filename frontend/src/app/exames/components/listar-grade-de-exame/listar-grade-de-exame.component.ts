@@ -22,13 +22,13 @@ import { ServidorService } from 'src/app/seguranca/services/servidor.service';
 export class ListarGradeDeExameComponent implements OnInit {
 
   id: string = '';
-  unidadeExecutoraId: string = '';
+  unidadeExecutoraNome: string = '';
   ativo: string = '';
   gradeDeAgendamentoId: string = '';
   salaId: string = '';
-  grupoAgendamentoExameId: string = '';
-  exameId: string = '';
-  responsavelId: string = '';
+  grupoGradeNome: string = '';
+  exameGradeNome: string = '';
+  responsavelNome: string = '';
   results = [];
  
   gradeAgendamento: GradesDeAgendamento[];
@@ -65,8 +65,8 @@ export class ListarGradeDeExameComponent implements OnInit {
   }
 
   listarGrades() {
-    this.gradeAgendamentoService.getGradesDeAgendamento(this.id, this.unidadeExecutoraId,
-      this.ativo, this.grupoAgendamentoExameId, this.exameId, this.responsavelId)
+    this.gradeAgendamentoService.getGradesDeAgendamento(this.id, this.unidadeExecutoraNome,
+      this.ativo, this.grupoGradeNome, this.exameGradeNome, this.responsavelNome)
       .subscribe((response) => {
         this.gradeAgendamento = response;
        });
@@ -104,11 +104,11 @@ export class ListarGradeDeExameComponent implements OnInit {
 
   limparFiltros() {
     this.id = '';
-    this.unidadeExecutoraId = '';
+    this.unidadeExecutoraNome = '';
     this.ativo = '';
-    this.grupoAgendamentoExameId = '';
-    this.exameId = '';
-    this.responsavelId = '';
+    this.grupoGradeNome = '';
+    this.exameGradeNome = '';
+    this.responsavelNome = '';
   }
 
 }
